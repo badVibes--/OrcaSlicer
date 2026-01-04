@@ -1,4 +1,5 @@
 #include "UpdateManager.hpp"
+#include "libslic3r/libslic3r.h"
 
 #ifdef __APPLE__
 
@@ -12,18 +13,10 @@
 // macOS Implementation (Sparkle 2)
 // ============================================================================
 
-namespace Slic3r {
-namespace GUI {
-
-// Static member definitions (defined in UpdateManager.cpp for other platforms)
-// For macOS, we need to define them here since UpdateManagerMac.mm is compiled instead
-bool UpdateManager::s_initialized = false;
-std::string UpdateManager::s_appcast_url;
-std::string UpdateManager::s_public_key;
-
 #ifdef ORCA_HAS_SPARKLE
 
 // Sparkle updater delegate for custom behavior
+// NOTE: Objective-C declarations must be at global scope (outside C++ namespaces)
 @interface OrcaSparkleDelegate : NSObject <SPUUpdaterDelegate>
 @end
 
@@ -68,6 +61,19 @@ std::string UpdateManager::s_public_key;
 // Static Sparkle controller and delegate instances
 static SPUStandardUpdaterController *s_updater_controller = nil;
 static OrcaSparkleDelegate *s_updater_delegate = nil;
+
+#endif // ORCA_HAS_SPARKLE
+
+namespace Slic3r {
+namespace GUI {
+
+// Static member definitions (defined in UpdateManager.cpp for other platforms)
+// For macOS, we need to define them here since UpdateManagerMac.mm is compiled instead
+bool UpdateManager::s_initialized = false;
+std::string UpdateManager::s_appcast_url;
+std::string UpdateManager::s_public_key;
+
+#ifdef ORCA_HAS_SPARKLE
 
 void UpdateManager::init(const std::string& appcast_url, const std::string& public_key)
 {
