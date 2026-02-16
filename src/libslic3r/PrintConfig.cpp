@@ -7655,7 +7655,7 @@ void PrintConfigDef::handle_legacy(t_config_option_key &opt_key, std::string &va
         opt_key = "wipe_tower_rib_width";
     } else if (opt_key == "prime_tower_fillet_wall") {
         opt_key = "wipe_tower_fillet_wall";
-    } else if (opt_key == "extruder_clearance_max_radius") {
+    } else if (opt_key == "extruder_clearance_dist_to_rod") {
         opt_key = "extruder_clearance_radius";
     } else if (opt_key == "machine_switch_extruder_time") {
         opt_key = "machine_tool_change_time";
