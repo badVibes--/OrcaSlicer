@@ -1470,10 +1470,10 @@ void IMSlider::on_mouse_wheel(wxMouseEvent& evt) {
 
     ImGuiWrapper& imgui = *wxGetApp().imgui();
 
-    float wheel = 0.0f;
-    wheel = evt.GetWheelRotation() > 0 ? 1.0f : -1.0f;
+    float wheel = evt.GetWheelRotation();
     if (wheel == 0.0f)
         return;
+    wheel = wheel > 0 ? 1.0f : -1.0f;
 
 #ifdef __WXOSX__
     if (wxGetKeyState(WXK_SHIFT)) {
